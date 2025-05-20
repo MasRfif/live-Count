@@ -9,22 +9,16 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 type ViewerData = {
   time: string;
   viewers: number;
 };
 
-type ChatMessage = {
-  username: string;
-  message: string;
-};
-
 export default function LiveViewerDashboard() {
   const [data, setData] = useState<ViewerData[]>([]);
   const [viewerCount, setViewerCount] = useState<number>(0);
-  const [chat, setChat] = useState<ChatMessage[]>([]);
 
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:62024");
@@ -51,16 +45,6 @@ export default function LiveViewerDashboard() {
             const updated = [...prev, newEntry];
             return updated.length > 20 ? updated.slice(-20) : updated;
           });
-        }
-
-        if (event === "chat") {
-          setChat((prev) => [
-            ...prev,
-            {
-              username: eventData.uniqueId,
-              message: eventData.comment,
-            },
-          ]);
         }
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
