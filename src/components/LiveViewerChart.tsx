@@ -23,6 +23,8 @@ export default function LiveViewerDashboard() {
   useEffect(() => {
     const ws = new WebSocket("ws://localhost:62024");
 
+    console.log("🟡 WebSocket Connection:", ws);
+
     ws.onopen = () => {
       console.log("Connected to WebSocket");
     };
@@ -30,11 +32,12 @@ export default function LiveViewerDashboard() {
     ws.onmessage = (msg) => {
       try {
         const message = JSON.parse(msg.data);
+
         const { event, data: eventData } = message;
 
-        if (event === "viewers" && eventData?.viewerCount !== undefined) {
+        if (event === "viewers" && eventData?.viewerCount) {
           const count = eventData.viewerCount;
-
+          console.log("🟢 Viewer Count:", count);
           const newEntry = {
             time: new Date().toLocaleTimeString(),
             viewers: count,
