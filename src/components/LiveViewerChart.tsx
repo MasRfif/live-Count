@@ -41,7 +41,7 @@ export default function LiveViewerDashboard() {
           setViewerCount(count);
 
           const topViewers = eventData.topViewers ?? [];
-          topViewers.forEach((viewerObj) => {
+          topViewers.forEach((viewerObj: { user: { uniqueId: string } }) => {
             const username = viewerObj?.user?.uniqueId || "unknown";
             console.log(`👤 Viewer: @${username}`);
           });
