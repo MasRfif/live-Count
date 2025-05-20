@@ -58,8 +58,8 @@ export default function LiveViewerDashboard() {
   }, []);
 
   return (
-    <div>
-      <div className="flex-1 bg-gray-800 rounded-xl p-4 shadow">
+    <div className="items-center justify-center min-w-screen text-white p-6">
+      <div className="flex-1 bg-gray-800 rounded-xl p-4 shadow ">
         <div className="text-4xl font-bold mb-2 text-turquoise-400">
           👁️ {viewerCount} Viewers
         </div>
